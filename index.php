@@ -2,15 +2,19 @@
 session_start();
 
 // Verifica se l'utente è loggato
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['username']) && ($_SESSION['user_id'])) {
     $loggedInUser = $_SESSION['username'];
     $loginButton = '
-        <a class="btn btn-primary mx-1">New Post</a>
+        <a class="btn btn-primary createBtn mx-1">New Post</a>
         <a class="btn btn-success mx-1">Post Dashboard</a>
         <a href="logout.php" class="btn btn-danger mx-1">Logout</a>
+        <a class="loginBtn d-none"></a>
         ';
 } else {
-    $loginButton = '<a class="btn btn-primary loginBtn mx-2">Login</a>';
+    $loginButton = '
+    <a class="btn btn-primary loginBtn mx-2">Login</a>
+    <a class="createBtn d-none"></a>
+    ';
 };
 ?>
 
@@ -48,17 +52,38 @@ if (isset($_SESSION['username'])) {
     </header>
 
     <!-- Modulo di login -->
-    <div class="container mt-5" id="loginForm" style="display: none;">
+    <div class="container mt-5" id="loginForm">
         <h2>Login</h2>
-        <form action="login.php" method="post" onsubmit="handleLoginFormSubmit(event)">
+        <form action="login.php" method="post">
             <label for="username">Username:</label>
+            <span id="usernameError" class="text-danger"></span>
             <input type="text" id="username" name="username" required><br><br>
             <label for="password">Password:</label>
+            <span id="passwordError" class="text-danger"></span>
             <input type="password" id="password" name="password" required><br><br>
-            <input type="submit" value="Login">
-            <button type="button" onclick="toggleLoginForm()" class="btn btn-secondary cancelBtn">Annulla</button>
+            <input type="submit" class="btn btn-primary p-2">
+            <button type="button" class="btn btn-secondary cancelBtnLogin p-2">Annulla</button>
         </form>
     </div>
+
+    <!-- Modulo di creazione Post -->
+    <div class="container mt-5" id="createPost">
+        <h2>Aggiungi Post</h2>
+        <form action="create_post.php" method="post">
+            <label for="title">Titolo:</label>
+            <span id="titleError" class="text-danger"></span>
+            <input type="text" id="title" name="title">
+
+            <label for="content">Contenuto:</label>
+            <span id="contentError" class="text-danger"></span>
+            <textarea id="content" name="content"></textarea>
+
+            <input type="submit" class="btn btn-primary p-2">
+            <button type="button" class="btn btn-secondary cancelBtnCreate p-2">Annulla</button>
+        </form>
+    </div>
+
+
 
     <div class="container mt-5">
         <!-- codice per visualizzare i post -->
@@ -68,7 +93,7 @@ if (isset($_SESSION['username'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- JavaScript per mostrare/nascondere il modulo di login -->
-    <script src="loginForm.js" type="module"></script>
+    <script src="script.js" type="module"></script>
 </body>
 
 </html>
