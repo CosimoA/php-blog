@@ -1,0 +1,46 @@
+/* Stile per il modulo di login */
+#loginForm {
+    display: none;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Stile per gli input del modulo */
+#loginForm input[type="text"],
+#loginForm input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Stile per il pulsante di submit */
+#loginForm input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Stile per il pulsante di submit al passaggio del mouse */
+#loginForm input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Stile per il pulsante "Annulla" */
+#loginForm .cancelBtn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

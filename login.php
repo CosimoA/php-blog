@@ -69,34 +69,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Chiudi la connessione
     $mysqli->close();
 }
-?>
-
-<!DOCTYPE html>
-<html lang="it">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-
-<body>
-    <h2>Login</h2>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-
-        <input type="submit" value="Login">
-    </form>
-    <?php
-    // Mostra eventuali messaggi di errore
-    if (isset($login_err)) {
-        echo '<p style="color: red;">' . $login_err . '</p>';
-    }
-    ?>
-</body>
-
-</html>
