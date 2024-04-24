@@ -1,4 +1,15 @@
 <?php
+
+require_once "config.php";
+
+// Query per selezionare tutti i post
+$sql = "SELECT p.*, c.name AS category_name FROM posts p JOIN categories c ON p.category_id = c.id";
+$result = $mysqli->query($sql);
+
+// Verifica se ci sono errori nella query
+if (!$result) {
+    die("Errore nella query: " . $mysqli->error);
+}
 session_start();
 
 // Verifica se l'utente è loggato
@@ -84,9 +95,41 @@ if (isset($_SESSION['username']) && ($_SESSION['user_id'])) {
     </div>
 
 
-
     <div class="container mt-5">
-        <!-- codice per visualizzare i post -->
+        <div id="postAccordion">
+
+            <?php
+            // Verifica se ci sono risultati
+            if ($result->num_rows > 0) {
+                // Output dei post
+                while ($row = $result->fetch_object()) {
+            ?>
+                    <div class="card mb-3">
+                        <img src="<?php echo $row->image; ?>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $row->title ?></h5>
+                            <!-- Categoria del post -->
+                            <p class="card-text ">Categoria:
+                                <span class="badge bg-secondary"><?= $row->category_name ?></span>
+                            </p>
+                            <!-- Data di pubblicazione del post -->
+                            <p class="card-text">Data di pubblicazione: <?= $row->created_at ?></p>
+                            <!-- Contenuto del post -->
+                            <p class="card-text collapse" id="collapse<?= $row->id ?>">
+                                <?= $row->content ?>
+                            </p>
+                            <!-- Link per espandere/nascondere il contenuto -->
+                            <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapse<?= $row->id ?>" role="button" aria-expanded="false" aria-controls="collapse<?= $row->id ?>">Leggi di più</a>
+                        </div>
+                    </div>
+
+            <?php
+                }
+            } else {
+                echo "Nessun post presente.";
+            }
+            ?>
+        </div>
     </div>
 
     <!-- Bootstrap Script-->
